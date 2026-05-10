@@ -14,7 +14,14 @@ source .venv/bin/activate     # Windows: .venv\Scripts\activate
 pytest solutions/
 ```
 
-If 10 tests pass, you're ready.
+You should see a green summary line like:
+
+```
+============================== N passed in 0.05s ==============================
+```
+
+What matters is `passed` with no failures or errors. The exact `N`
+grows as solutions are added.
 
 For full setup, including a GitHub Codespaces fallback, an offline-bundle
 backup, and editor setup videos, see **[docs/prep.md](docs/prep.md)**.
