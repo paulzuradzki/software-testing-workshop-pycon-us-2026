@@ -2,6 +2,8 @@
 
 Learner repo: <https://github.com/paulzuradzki/software-testing-workshop-pycon-us-2026>
 
+Slides: <https://paulzuradzki.com/talks/pycon-us-2026-tutorial-software-testing/> (also bundled in this repo as `slides.pdf`)
+
 ## 👋 Start here
 
 Before the workshop, set up your environment:
@@ -20,11 +22,9 @@ You should see a green summary line like:
 ============================== N passed in 0.05s ==============================
 ```
 
-What matters is `passed` with no failures or errors. The exact `N`
-grows as solutions are added.
+What matters is `passed` with no failures or errors.
 
-For full setup, including a GitHub Codespaces fallback, an offline-bundle
-backup, and editor setup videos, see **[docs/prep.md](docs/prep.md)**.
+For full setup, including a GitHub Codespaces fallback and editor setup videos, see **[docs/prep.md](docs/prep.md)**.
 
 > **If `pytest` isn't found**, your venv probably isn't active in this
 > terminal. Re-activate, or prefix any command with `uv run` to bypass

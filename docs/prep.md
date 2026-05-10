@@ -12,13 +12,12 @@ exercise blocks.
 
 ## Installation options
 
-Use Path A. Use B or C only if A fails.
+Use Path A. Use B only if A fails.
 
 | Path | When to use | Time |
 | --- | --- | --: |
 | A. Local install | Default. | ~10 min |
 | B. GitHub Codespaces | Local Python broken or restricted. | ~5 min |
-| C. Offline bundle | A and B both unavailable. | varies |
 
 ## Path A. Local install
 
@@ -53,12 +52,17 @@ Verify:
 uv --version
 ```
 
-### 2. Clone the repo
+### 2. Get the code
 
 ```
 git clone https://github.com/paulzuradzki/software-testing-workshop-pycon-us-2026.git
 cd software-testing-workshop-pycon-us-2026
 ```
+
+If you'd rather not use git, download a ZIP from the
+[GitHub repo page](https://github.com/paulzuradzki/software-testing-workshop-pycon-us-2026):
+click **Code** → **Download ZIP**, unzip, then `cd` into the
+extracted folder.
 
 ### 3. Install dependencies
 
@@ -154,17 +158,6 @@ environment. You'll need a free GitHub account.
 Codespaces pause when your browser tab closes. Reopening the tab
 resumes the same environment. You can also open a codespace in your
 local VS Code via the GitHub Codespaces extension.
-
-## Path C. Offline bundle
-
-If A and B both fail, contact me before the workshop. I'll share a
-pre-downloaded tarball plus the wheels needed to install pytest
-without internet.
-
-No USB drives. Many work laptops refuse them.
-
-Final fallback: the workshop code is small enough that I can rewrite
-the examples live with stdlib `unittest`.
 
 ## Editor
 
