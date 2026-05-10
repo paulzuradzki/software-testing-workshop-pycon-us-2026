@@ -1,0 +1,16 @@
+[project]
+name = "temperature-converter"
+version = "0.1.0"
+description = "Exercise 1.5: Package structure with src/ and test/ separation"
+requires-python = ">=3.12"
+dependencies = []
+
+[dependency-groups]
+dev = [
+    "pytest>=9.0.2",
+]
+
+# see docs for how package discovery works
+# https://hatch.pypa.io/latest/config/build/#packages
+[tool.hatch.build.targets.wheel]
+packages = ["src/converter"]

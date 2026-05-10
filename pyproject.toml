@@ -1,0 +1,21 @@
+[project]
+name = "software-testing-workshop"
+version = "0.1.0"
+description = "Add your description here"
+requires-python = ">=3.12"
+dependencies = []
+
+[dependency-groups]
+dev = [
+    "pytest>=9.0.2",
+]
+
+[tool.pytest.ini_options]
+markers = [
+    "slow: marks tests as slow (deselect with '-m \"not slow\"')",
+]
+
+[tool.uv.workspace]
+members = [
+    "modules/1.5_package_structure",
+]

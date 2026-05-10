@@ -10,5 +10,14 @@ wheels/
 # Virtual environments
 .venv
 
+# Test artifacts (coverage and Hypothesis databases)
+.coverage
+.coverage.*
+htmlcov/
+.hypothesis/
+
+# macOS
+.DS_Store
+
 # Personal Claude Code overrides (settings.json IS tracked, settings.local.json is not)
 .claude/settings.local.json
