@@ -1,0 +1,43 @@
+# Run the solution suite on every push and PR.
+#
+# Doubles as the worked example for the wrap-up "Continuous Integration"
+# slide in the workshop. Read this and notice three things:
+#
+#   1. Trigger: on push to main + on every pull_request.
+#   2. Cache + install: uv handles the venv and dependencies.
+#   3. Verification: pytest exits non-zero on any failure; GitHub flags
+#      the run red and blocks merge if branch protection is set.
+name: tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v3
+        with:
+          enable-cache: true
+
+      - name: Set up Python
+        run: uv python install 3.12
+
+      - name: Install dependencies
+        run: uv sync
+
+      - name: Lint (ruff)
+        run: |
+          uv run ruff format --check modules/ solutions/
+          uv run ruff check modules/ solutions/
+
+      - name: Type check (pyright)
+        run: uv run pyright modules/ solutions/
+
+      - name: Run the solution test suite
+        run: uv run pytest solutions/ -v

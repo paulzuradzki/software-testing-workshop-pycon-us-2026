@@ -1,4 +1,5 @@
 import json
+import tempfile
 from dataclasses import asdict, dataclass
 from pathlib import Path
 
@@ -102,8 +103,6 @@ class FileToDoTracker:
 
 def main():
     """Manual smoke test: in-memory vs file-backed, same six methods."""
-    import tempfile
-
     print("In-memory tracker:")
     mem = ToDoTracker()
     mem.create_todo(ToDo(id=1, title="Buy groceries", description="weekly run", completed=False))

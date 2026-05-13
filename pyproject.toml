@@ -29,7 +29,9 @@ line-length = 100
 [tool.ruff.lint]
 # Workshop-friendly defaults: format + a small set of high-signal lint rules.
 # E + F are pyflakes/pycodestyle basics. I is import-sorting. UP is pyupgrade.
-select = ["E", "F", "I", "UP"]
+# PLC0415 catches imports inside functions/methods (encourages top-of-file
+# imports; lazy imports are an exception, see per-file-ignores).
+select = ["E", "F", "I", "UP", "PLC0415"]
 ignore = [
     "E501",  # line-too-long handled by formatter where it can
 ]
@@ -38,6 +40,10 @@ ignore = [
 # `_START.py` files are exercise scaffolds. Unused-variable placeholders are
 # intentional; students fill them in.
 "**/*_START.py" = ["F841"]
+# storage.py uses intentional lazy imports for boto3 / sqlalchemy so the
+# module loads cleanly without those cloud SDKs installed (production-style
+# pattern; documented inline).
+"modules/3.1_dependency_injection/storage.py" = ["PLC0415"]
 
 [tool.pyright]
 # Non-strict on purpose. The workshop is a teaching repo; full type

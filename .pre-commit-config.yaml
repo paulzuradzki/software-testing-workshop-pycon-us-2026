@@ -1,0 +1,26 @@
+# Pre-commit hooks for the workshop repo.
+#
+# Install once per clone:
+#   uv sync
+#   uv run pre-commit install
+#
+# Run on demand:
+#   uv run pre-commit run --all-files
+#
+# Bump pinned revs occasionally:
+#   uv run pre-commit autoupdate
+repos:
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.8.6
+    hooks:
+      - id: ruff-format
+      - id: ruff
+        args: [--fix]
+
+  - repo: https://github.com/RobertCraigie/pyright-python
+    rev: v1.1.391
+    hooks:
+      - id: pyright
+        # `basic` mode is configured in pyproject.toml under [tool.pyright].
+        # Pre-commit reuses the project's pinned pyright via uv-managed deps.
+        additional_dependencies: []
