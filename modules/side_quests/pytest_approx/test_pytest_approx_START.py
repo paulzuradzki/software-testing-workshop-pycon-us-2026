@@ -18,7 +18,6 @@ The second test has a TODO to complete.
 """
 
 
-
 def test_naive_float_equality_fails():
     """Demonstration: equality on floats can lie.
 

@@ -13,7 +13,6 @@ The pytest demo at test_file_todo_DEMO.py applies the same fixture
 shape to create_todo. Compare the two files side by side.
 """
 
-
 import pytest
 from todo import FileToDoTracker
 
