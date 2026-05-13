@@ -15,8 +15,8 @@ Hints if needed. Look up pytest's tmp_path fixture. Look up fixtures
 that yield and run teardown after the yield. Either approach works.
 Do not solve it by adding a sleep or by hard-coding a test order.
 """
-from pathlib import Path
 
+from pathlib import Path
 
 SCRATCH = Path("scratch.txt")
 

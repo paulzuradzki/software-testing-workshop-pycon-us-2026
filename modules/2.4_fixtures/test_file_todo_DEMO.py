@@ -15,12 +15,12 @@ Two flavors are shown side by side:
 Notice that the test bodies are identical between the two flavors. The
 fixture is the only thing that changes.
 """
+
 import json
 import tempfile
 from pathlib import Path
 
 import pytest
-
 from todo import FileToDoTracker, ToDo
 
 

@@ -45,6 +45,7 @@ def convert_fahrenheit_to_celsius(temp):
 # starts with `test_`. unittest's runner ignores it because it's not a method
 # on a TestCase class.
 
+
 def test_convert_fahrenheit_to_celsius():
     assert convert_fahrenheit_to_celsius(212) == 100.0
     assert convert_fahrenheit_to_celsius(32) == 0.0
@@ -56,6 +57,7 @@ def test_convert_fahrenheit_to_celsius():
 # ---------- unittest style --------------------------------------------------
 # TestCase subclass with a test method. Both runners discover it. unittest
 # requires the class boilerplate; pytest accepts the same shape for free.
+
 
 class TestConvertFahrenheitToCelsius(TestCase):
     def test_convert_fahrenheit_to_celsius(self):

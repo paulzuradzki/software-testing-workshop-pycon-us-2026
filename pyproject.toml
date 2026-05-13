@@ -8,11 +8,54 @@ dependencies = []
 [dependency-groups]
 dev = [
     "pytest>=9.0.2",
+    "ruff>=0.8.0",
+    "pyright>=1.1.390",
+    "pre-commit>=4.0.0",
+    "ipython>=8.30.0",
+    "temperature-converter",
 ]
+
+[tool.uv.sources]
+temperature-converter = { workspace = true }
 
 [tool.pytest.ini_options]
 markers = [
     "slow: marks tests as slow (deselect with '-m \"not slow\"')",
+]
+
+[tool.ruff]
+line-length = 100
+
+[tool.ruff.lint]
+# Workshop-friendly defaults: format + a small set of high-signal lint rules.
+# E + F are pyflakes/pycodestyle basics. I is import-sorting. UP is pyupgrade.
+select = ["E", "F", "I", "UP"]
+ignore = [
+    "E501",  # line-too-long handled by formatter where it can
+]
+
+[tool.ruff.lint.per-file-ignores]
+# `_START.py` files are exercise scaffolds. Unused-variable placeholders are
+# intentional; students fill them in.
+"**/*_START.py" = ["F841"]
+
+[tool.pyright]
+# Non-strict on purpose. The workshop is a teaching repo; full type
+# annotations are a separate side quest. "basic" still catches obvious
+# bugs (None where a list is expected, missing attributes, etc).
+typeCheckingMode = "basic"
+
+# Test files reach into each module via per-directory conftest.py / pytest
+# rootdir tricks. Pyright doesn't see those, so dial the import-resolution
+# noise down. `reportArgumentType` drops to warning because some test fakes
+# duck-type ABCs intentionally to teach the substitution point.
+reportMissingImports = "none"
+reportArgumentType = "warning"
+
+exclude = [
+    "**/__pycache__",
+    "**/.venv",
+    "modules/1.5_package_structure/.venv",
 ]
 
 [tool.uv.workspace]

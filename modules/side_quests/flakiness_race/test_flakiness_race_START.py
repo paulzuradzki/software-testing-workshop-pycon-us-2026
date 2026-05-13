@@ -23,8 +23,6 @@ and Enter a few times. Running once is not enough to trust the result.
 
 import threading
 
-import pytest
-
 NUM_THREADS = 50
 ITERATIONS_PER_THREAD = 2000
 EXPECTED_TOTAL = NUM_THREADS * ITERATIONS_PER_THREAD

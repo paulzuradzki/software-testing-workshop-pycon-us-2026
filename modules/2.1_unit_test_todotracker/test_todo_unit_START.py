@@ -8,7 +8,8 @@ Run from the repo root:
 
     pytest modules/2.1_unit_test_todotracker -q
 """
-from todo import ToDoTracker, ToDo
+
+from todo import ToDo, ToDoTracker
 
 
 def test_create_todo():

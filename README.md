@@ -43,7 +43,9 @@ Level up your testing and software design skills in this introduction to softwar
 
 **What the workshop looks like.** The workshop is built around exercises with short explanations between them. You will write tests from the first exercise and keep writing them throughout. Optional side quests give an extra challenge and leave room for peer discussion. The material moves through three parts: fundamentals of writing and running tests, practical tooling like fixtures and parameterized tests, and testing as a design discipline.
 
-**Prerequisites.** You should be comfortable writing Python functions and able to run Python scripts. Familiarity with classes is helpful but not required.
+**Prerequisites.** You should be comfortable writing Python functions and able to run Python scripts.
+
+We use object-oriented programming throughout. You will see classes with `__init__` and methods you call as `obj.method()`. Part 3 introduces abstract base classes (`abc.ABC`) for dependency injection. If `class`, `self`, and `__init__` are unfamiliar, Real Python's intro to OOP starts from those primitives: <https://realpython.com/python3-object-oriented-programming/>. You will not need to write your own classes from scratch.
 
 ---
 

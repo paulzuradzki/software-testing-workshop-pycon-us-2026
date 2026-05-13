@@ -13,7 +13,6 @@ Run with:
     uv run pytest test_convert_f_to_c_START.py -v
 """
 
-import pytest
 
 
 def convert_fahrenheit_to_celsius(temp):
@@ -28,6 +27,7 @@ def convert_fahrenheit_to_celsius(temp):
 #   (-40, -40.0)
 #   (100, 37.77777777777778)
 #   (0, -17.77777777777778)
+
 
 def test_convert_fahrenheit_to_celsius():
     assert convert_fahrenheit_to_celsius(212) == 100.0

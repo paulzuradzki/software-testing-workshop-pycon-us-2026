@@ -3,10 +3,10 @@
 Hands-on for Part 3.
 
 `ETL` takes a `reader` and a `writer` injected at construction time.
-The `Reader` / `Writer` types are `Protocol`s defined in `storage.py`,
-along with concrete classes for S3, Postgres, the local filesystem,
-and SQLite. Tests substitute fakes (or in-memory SQLite) for the real
-network/database I/O.
+The `Reader` / `Writer` types are abstract base classes (`abc.ABC`)
+defined in `storage.py`, along with concrete classes for S3, Postgres,
+the local filesystem, and SQLite. Tests substitute fakes (or in-memory
+SQLite) for the real network/database I/O.
 
 ```
 pytest modules/3.1_dependency_injection -q
@@ -14,12 +14,12 @@ pytest modules/3.1_dependency_injection -q
 
 Files:
 
-- `storage.py` (read-only). `Reader`/`Writer` Protocols and concrete
-  classes: `LocalFileReader`, `LocalFileWriter`, `SqliteWriter`,
+- `storage.py` (read-only). `Reader`/`Writer` ABCs and concrete
+  subclasses: `LocalFileReader`, `LocalFileWriter`, `SqliteWriter`,
   `S3Reader` (lazy-imports `boto3`), `PostgresWriter` (lazy-imports
   `sqlalchemy`).
 - `etl.py` (read-only). `ETL(reader, writer)` typed against the
-  Protocols.
+  ABCs.
 - `test_etl_START.py` (your worksheet). `FakeReader` plus three tests
   already wired up: `test_extract_with_fake`,
   `test_extract_with_local_file` (uses `LocalFileReader` + `tmp_path`),

@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 
+
 @dataclass
 class ToDo:
     id: int
@@ -7,12 +8,6 @@ class ToDo:
     description: str
     completed: bool
 
-def main():
-    todo_tracker = ToDoTracker()
-    todo_tracker.create_todo(ToDo(id=1, title="Buy groceries", description="Buy groceries", completed=False))
-    todo_tracker.create_todo(ToDo(id=2, title="Buy vegetables", description="Buy vegetables", completed=False))
-    todo_tracker.create_todo(ToDo(id=3, title="Buy fruits", description="Buy fruits", completed=False))
-    print(todo_tracker.search_todos("groceries"))
 
 class ToDoTracker:
     def __init__(self):
@@ -36,3 +31,21 @@ class ToDoTracker:
 
     def delete_todo(self, index: int):
         self.todos.pop(index)
+
+
+def main():
+    tracker = ToDoTracker()
+    tracker.create_todo(
+        ToDo(id=1, title="Buy groceries", description="weekly run", completed=False)
+    )
+    tracker.create_todo(
+        ToDo(id=2, title="Buy vegetables", description="for the soup", completed=False)
+    )
+    tracker.create_todo(
+        ToDo(id=3, title="Buy fruits", description="bananas + apples", completed=False)
+    )
+    print(tracker.search_todos("groceries"))
+
+
+if __name__ == "__main__":
+    main()

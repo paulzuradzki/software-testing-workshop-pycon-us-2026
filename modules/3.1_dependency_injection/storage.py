@@ -1,8 +1,19 @@
 """Concrete reader/writer implementations for the ETL pipeline.
 
-The duck-typed contract is captured by `Reader` and `Writer` Protocols
-below. ETL only sees the protocol; the concrete class plugs in at the
-seam.
+The contract is captured by the `Reader` and `Writer` abstract base
+classes below (`abc.ABC` + `@abstractmethod`). ETL only sees those
+ABCs; the concrete class plugs in at the seam.
+
+Why ABC and not `typing.Protocol` here:
+
+- `@abstractmethod` is enforced at *instantiation*. `LocalFileReader()`
+  raises `TypeError` if a subclass forgets `read`. That makes the
+  contract obvious to a reader of the file.
+- pyright/mypy will flag a missing method on a subclass at the
+  subclass definition, not just at the call site.
+- Protocol gives you structural (duck) typing and is also valid.
+  Pythonic taste varies. We pick ABC here because the explicit
+  contract is easier to teach.
 
 Pick the implementation that fits the context:
 
@@ -11,36 +22,42 @@ Pick the implementation that fits the context:
 - Testing:      `FakeReader` / `FakeWriter` (defined per-test) or
                 `SqliteWriter` against an in-memory SQLite connection
 
+Test fakes in `test_etl_START.py` don't inherit from `Reader` /
+`Writer`. Duck typing still works at the call site because ETL never
+calls `isinstance`. Inheriting is a stricter style; both are valid.
+
 `S3Reader` and `PostgresWriter` lazy-import `boto3` / `sqlalchemy`
 inside `__init__`, so this module imports cleanly without those
 packages installed. They're here as concrete examples; the workshop
 exercises don't instantiate them.
 """
+
 from __future__ import annotations
 
 import csv
 import sqlite3
+from abc import ABC, abstractmethod
 from pathlib import Path
-from typing import Protocol, runtime_checkable
 
 
-@runtime_checkable
-class Reader(Protocol):
-    """Anything with a `read(key) -> list[dict]` method."""
+class Reader(ABC):
+    """Contract: `read(key) -> list[dict]`."""
 
+    @abstractmethod
     def read(self, key: str) -> list[dict]: ...
 
 
-@runtime_checkable
-class Writer(Protocol):
-    """Anything with a `write(key, rows) -> None` method."""
+class Writer(ABC):
+    """Contract: `write(key, rows) -> None`."""
 
+    @abstractmethod
     def write(self, key: str, rows: list[dict]) -> None: ...
 
 
 # --- Local filesystem implementations ---------------------------------------
 
-class LocalFileReader:
+
+class LocalFileReader(Reader):
     """Reads CSV from `<base_path>/<key>`."""
 
     def __init__(self, base_path: str | Path):
@@ -51,7 +68,7 @@ class LocalFileReader:
             return list(csv.DictReader(f))
 
 
-class LocalFileWriter:
+class LocalFileWriter(Writer):
     """Writes rows as CSV to `<base_path>/<key>`."""
 
     def __init__(self, base_path: str | Path):
@@ -71,7 +88,8 @@ class LocalFileWriter:
 
 # --- SQLite (in-process database) -------------------------------------------
 
-class SqliteWriter:
+
+class SqliteWriter(Writer):
     """Writes rows to a SQLite table named `key`. Use
     `sqlite3.connect(":memory:")` for fast, isolated tests.
 
@@ -98,12 +116,14 @@ class SqliteWriter:
 
 # --- Cloud / production implementations (lazy-imported) ---------------------
 
-class S3Reader:
+
+class S3Reader(Reader):
     """Reads CSV from `s3://<bucket>/<key>`. Requires `boto3`."""
 
     def __init__(self, bucket: str, client=None):
         if client is None:
             import boto3  # lazy import keeps storage.py importable without boto3
+
             client = boto3.client("s3")
         self.bucket = bucket
         self.client = client
@@ -114,22 +134,23 @@ class S3Reader:
         return list(csv.DictReader(body.splitlines()))
 
 
-class PostgresWriter:
+class PostgresWriter(Writer):
     """Writes rows to a Postgres table. Requires `sqlalchemy`."""
 
     def __init__(self, db_url: str):
         from sqlalchemy import create_engine  # lazy import
+
         self.engine = create_engine(db_url)
 
     def write(self, key: str, rows: list[dict]) -> None:
         from sqlalchemy import text
+
         if not rows:
             return
         cols = list(rows[0].keys())
         placeholders = ", ".join(":" + c for c in cols)
         with self.engine.begin() as conn:
             conn.execute(
-                text(f'INSERT INTO {key} ({", ".join(cols)}) '
-                     f'VALUES ({placeholders})'),
+                text(f"INSERT INTO {key} ({', '.join(cols)}) VALUES ({placeholders})"),
                 rows,
             )

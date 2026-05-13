@@ -5,10 +5,10 @@ and tests it with the file_tracker fixture. Two assertions per test:
 the on-disk JSON and the in-memory tracker view, plus a reload check
 that proves persistence survives a fresh tracker.
 """
+
 import json
 
 import pytest
-
 from todo import FileToDoTracker, ToDo
 
 

@@ -33,26 +33,24 @@ Run from the repo root:
 
     pytest modules/3.1_dependency_injection -q
 """
+
 from __future__ import annotations
 
 import csv
-import sqlite3
 from pathlib import Path
 
 import pytest
-
 from etl import ETL
-from storage import LocalFileReader, SqliteWriter
-
+from storage import LocalFileReader
 
 SOURCE_ROWS = [
     {"id": "1", "name": "Alice", "email": "alice@example.com"},
-    {"id": "2", "name": "Bob",   "email": "bob@example.com"},
+    {"id": "2", "name": "Bob", "email": "bob@example.com"},
 ]
 
 EXPECTED_ROWS = [
     {"id": "1", "name_redacted": "A***e", "email_redacted": "a***************m"},
-    {"id": "2", "name_redacted": "B*b",   "email_redacted": "b*************m"},
+    {"id": "2", "name_redacted": "B*b", "email_redacted": "b*************m"},
 ]
 
 
@@ -112,10 +110,12 @@ def test_transform():
 
 # Pick one (or do both!): a recording fake OR in-memory SQLite.
 
+
 class FakeWriter:
     """Recording fake. Real writers persist somewhere; this one just
     remembers what it was asked to write so the test can inspect.
     """
+
     # TODO: implement __init__ to set up storage for recorded writes.
     # TODO: implement write(self, key, rows) to record the call.
 

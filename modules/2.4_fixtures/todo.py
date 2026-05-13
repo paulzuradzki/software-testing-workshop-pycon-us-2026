@@ -1,5 +1,5 @@
-from dataclasses import dataclass, asdict
 import json
+from dataclasses import asdict, dataclass
 from pathlib import Path
 
 
@@ -98,3 +98,29 @@ class FileToDoTracker:
 # exposes those methods runs the same tests written against the
 # in-memory or file trackers. Start from sqlite3.connect(":memory:")
 # for a fast version that needs no temp files.
+
+
+def main():
+    """Manual smoke test: in-memory vs file-backed, same six methods."""
+    import tempfile
+
+    print("In-memory tracker:")
+    mem = ToDoTracker()
+    mem.create_todo(ToDo(id=1, title="Buy groceries", description="weekly run", completed=False))
+    mem.create_todo(ToDo(id=2, title="Buy fruits", description="bananas + apples", completed=False))
+    print(" ", mem.search_todos("groceries"))
+
+    with tempfile.TemporaryDirectory() as tmp:
+        path = Path(tmp) / "todos.json"
+        print(f"\nFile-backed tracker at {path}:")
+        f = FileToDoTracker(path)
+        f.create_todo(ToDo(id=1, title="Buy groceries", description="weekly run", completed=False))
+        f.create_todo(
+            ToDo(id=2, title="Buy fruits", description="bananas + apples", completed=False)
+        )
+        print(" ", f.search_todos("groceries"))
+        print("  raw file contents:", path.read_text())
+
+
+if __name__ == "__main__":
+    main()

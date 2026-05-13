@@ -1,5 +1,6 @@
-from converter.convert_weight import convert_lb_to_kg                                                
 import pytest
+from converter.convert_weight import convert_lb_to_kg
+
 
 def test_convert_lb_to_kg():
     # Arrange

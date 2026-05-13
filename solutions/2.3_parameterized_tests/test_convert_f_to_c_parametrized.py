@@ -1,4 +1,5 @@
 """Solution for Exercise 2.3 (Parameterized tests)."""
+
 import pytest
 
 

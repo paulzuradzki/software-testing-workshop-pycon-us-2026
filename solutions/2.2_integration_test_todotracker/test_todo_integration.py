@@ -2,7 +2,8 @@
 
 Imports `todo` from the corresponding modules/ directory via conftest.py.
 """
-from todo import ToDoTracker, ToDo
+
+from todo import ToDo, ToDoTracker
 
 
 def test_create_and_search_todos():

@@ -21,7 +21,8 @@ Run:
     cd modules/2.2_integration_test_todotracker
     pytest test_todo_integration_DEMO.py -v
 """
-from todo import ToDoTracker, ToDo
+
+from todo import ToDo, ToDoTracker
 
 
 def test_read_returns_both_open_and_completed_todos():

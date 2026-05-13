@@ -1,5 +1,6 @@
 from converter.convert_temp import convert_fahrenheit_to_celsius
 
+
 def test_convert_fahrenheit_to_celsius():
     assert convert_fahrenheit_to_celsius(212) == 100.0
     assert convert_fahrenheit_to_celsius(32) == 0.0

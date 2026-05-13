@@ -14,7 +14,6 @@ Exercises:
 
 import pytest
 
-
 # ─── Source Code ────────────────────────────────────────────
 
 

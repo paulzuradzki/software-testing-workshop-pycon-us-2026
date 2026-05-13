@@ -5,8 +5,9 @@ implemented, plus SqliteToDoTracker for the optional side quest. The
 conftest in this directory makes `from todo import ...` resolve to
 this file rather than the modules copy.
 """
-from dataclasses import dataclass, asdict
+
 import json
+from dataclasses import asdict, dataclass
 from pathlib import Path
 
 
@@ -129,8 +130,7 @@ class SqliteToDoTracker:
 
     def get_todo(self, index: int):
         cursor = self.conn.execute(
-            "SELECT id, title, description, completed FROM todos "
-            "ORDER BY rowid LIMIT 1 OFFSET ?",
+            "SELECT id, title, description, completed FROM todos ORDER BY rowid LIMIT 1 OFFSET ?",
             (index,),
         )
         row = cursor.fetchone()

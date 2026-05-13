@@ -25,17 +25,17 @@ Pointer: a production-grade snapshot library is `approvaltests` on
 PyPI. The hand-rolled version here keeps the moving parts visible.
 The mechanism is `assert actual == captured_baseline`.
 """
-import pytest
 
+import pytest
 from gnarly import compute_invoice
 
-
 CASES = [
-    ("regular_small",        (1,  10.0, "regular",  None)),
-    ("silver_taxexempt",     (1,  10.0, "silver",   None)),
-    ("gold_midsize",         (5,  20.0, "gold",     None)),
-    ("platinum_bulk_coupon", (25,  5.0, "platinum", "NEW10")),
-    ("regular_coupon",       (3,  30.0, "regular",  "NEW10")),
+    # tuple takes form:      (quantity, price, customer_type, coupon_code)
+    ("regular_small", (1, 10.0, "regular", None)),
+    ("silver_taxexempt", (1, 10.0, "silver", None)),
+    ("gold_midsize", (5, 20.0, "gold", None)),
+    ("platinum_bulk_coupon", (25, 5.0, "platinum", "NEW10")),
+    ("regular_coupon", (3, 30.0, "regular", "NEW10")),
 ]
 
 # TODO: populate by running this file as a script (see module docstring).

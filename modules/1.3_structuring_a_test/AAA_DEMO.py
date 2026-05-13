@@ -15,9 +15,11 @@ Auto-discovery picks up `test_aaa_START.py` because the filename
 starts with `test_`. AAA_DEMO.py is left out.
 """
 
+
 class ProfitReport:
     """Profit calculator."""
-    def __init__(self, sales_data: dict[list], cost_data: dict[list]):
+
+    def __init__(self, sales_data: list[dict], cost_data: list[dict]):
         self.sales_data = sales_data
         self.cost_data = cost_data
 

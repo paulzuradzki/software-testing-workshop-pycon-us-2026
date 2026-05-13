@@ -10,10 +10,10 @@ file-backed test) when introducing the "fixtures abstract over
 resource ownership" point. Students never see this file in the
 student-copy build; the SQLite work lives in the solutions tree only.
 """
+
 import sqlite3
 
 import pytest
-
 from todo import SqliteToDoTracker, ToDo
 
 
@@ -47,8 +47,12 @@ def test_update_todo_persists_to_db(sqlite_tracker):
 
 
 def test_search_todos_matches_title_and_description(sqlite_tracker):
-    sqlite_tracker.create_todo(ToDo(id=1, title="Buy groceries", description="weekly", completed=False))
-    sqlite_tracker.create_todo(ToDo(id=2, title="Walk dog", description="around the block", completed=False))
+    sqlite_tracker.create_todo(
+        ToDo(id=1, title="Buy groceries", description="weekly", completed=False)
+    )
+    sqlite_tracker.create_todo(
+        ToDo(id=2, title="Walk dog", description="around the block", completed=False)
+    )
 
     matches = sqlite_tracker.search_todos("dog")
 

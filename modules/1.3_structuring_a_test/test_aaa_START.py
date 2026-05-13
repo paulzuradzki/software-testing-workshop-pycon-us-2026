@@ -39,6 +39,7 @@ class Cart:
 # Do not change values; only re-order. Drop the "_is_scrambled" suffix
 # from the function name once the layout is settled.
 
+
 def test_cart_total_two_items_is_scrambled():
     cart = Cart()
     cart.add_item(1.50)
@@ -52,6 +53,7 @@ def test_cart_total_two_items_is_scrambled():
 #
 # Add 10.00, 5.50, and 4.50 to a Cart, then assert the total is 20.00.
 # Use the same Arrange / Act / Assert layout from Part A.
+
 
 def test_cart_total_three_items():
     # Arrange

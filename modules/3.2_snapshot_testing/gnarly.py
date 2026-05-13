@@ -10,7 +10,22 @@ Pricing rules:
 - Tax: 8.875% on the post-discount subtotal,
   except silver/gold/platinum customers are tax-exempt below $25.
 """
+
 from __future__ import annotations
+
+
+def main():
+    # This is just one manual test example
+    # How do we cover compute invoice with tests so we can update it more safely?
+    invoice_data = {
+        "quantity": 100,
+        "price": 10,
+        "customer_type": "silver",
+        "coupon_code": None,
+    }
+
+    result = compute_invoice(*invoice_data.values())
+    print(result)  # 979.88
 
 
 def compute_invoice(quantity, price, customer_type, coupon_code=None):
@@ -32,3 +47,7 @@ def compute_invoice(quantity, price, customer_type, coupon_code=None):
         tax = sub_after * 0.08875
 
     return round(sub_after + tax, 2)
+
+
+if __name__ == "__main__":
+    main()

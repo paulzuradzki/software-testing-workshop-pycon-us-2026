@@ -1,4 +1,5 @@
 """Solution for Exercise 3.1: DI tests with fakes and SQLite."""
+
 from __future__ import annotations
 
 import csv
@@ -8,15 +9,14 @@ from pathlib import Path
 from etl import ETL
 from storage import LocalFileReader, SqliteWriter
 
-
 SOURCE_ROWS = [
     {"id": "1", "name": "Alice", "email": "alice@example.com"},
-    {"id": "2", "name": "Bob",   "email": "bob@example.com"},
+    {"id": "2", "name": "Bob", "email": "bob@example.com"},
 ]
 
 EXPECTED_ROWS = [
     {"id": "1", "name_redacted": "A***e", "email_redacted": "a***************m"},
-    {"id": "2", "name_redacted": "B*b",   "email_redacted": "b*************m"},
+    {"id": "2", "name_redacted": "B*b", "email_redacted": "b*************m"},
 ]
 
 
@@ -83,12 +83,12 @@ def test_load_with_sqlite_writer():
 
     etl.load(EXPECTED_ROWS, "users_transformed")
 
-    persisted = list(conn.execute(
-        "SELECT id, name_redacted, email_redacted FROM users_transformed ORDER BY id"
-    ))
+    persisted = list(
+        conn.execute("SELECT id, name_redacted, email_redacted FROM users_transformed ORDER BY id")
+    )
     assert persisted == [
         ("1", "A***e", "a***************m"),
-        ("2", "B*b",   "b*************m"),
+        ("2", "B*b", "b*************m"),
     ]
 
 

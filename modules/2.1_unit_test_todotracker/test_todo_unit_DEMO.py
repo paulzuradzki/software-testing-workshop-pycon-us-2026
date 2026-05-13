@@ -11,7 +11,8 @@ Run:
     cd modules/2.1_unit_test_todotracker
     pytest test_todo_unit_DEMO.py -v
 """
-from todo import ToDoTracker, ToDo
+
+from todo import ToDo, ToDoTracker
 
 
 def test_create_todo_returns_the_stored_value():

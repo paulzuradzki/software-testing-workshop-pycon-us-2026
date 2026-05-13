@@ -17,7 +17,6 @@ The first test below is expected to fail. That failure is the lesson.
 The second test has a TODO to complete.
 """
 
-import pytest
 
 
 def test_naive_float_equality_fails():
